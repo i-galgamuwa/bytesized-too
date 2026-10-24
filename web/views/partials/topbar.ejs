@@ -1,0 +1,12 @@
+<header class="h-16 flex items-center justify-between px-8 border-b border-slate-200 bg-white flex-shrink-0">
+  <div>
+    <h1 class="text-lg font-semibold text-ink"><%= title %></h1>
+    <p class="text-sm text-slate-500"><%= subtitle %></p>
+  </div>
+  <div class="flex items-center gap-4">
+    <span class="text-xs text-slate-400">Last synced <span id="last-synced" class="font-mono">—</span></span>
+    <button id="refresh-btn" class="text-sm font-medium text-white bg-accent hover:bg-blue-700 px-3.5 py-1.5 rounded-md transition-colors">
+      Refresh
+    </button>
+  </div>
+</header>

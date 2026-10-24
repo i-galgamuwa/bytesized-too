@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('partials/head', { title: 'Schedule' }) %>
+</head>
+<body class="bg-slate-50 font-sans text-ink antialiased">
+  <%- include('partials/sidebar', { active }) %>
+
+  <div class="ml-64 min-h-screen flex flex-col">
+    <%- include('partials/topbar', { title: 'Schedule', subtitle: 'Plan visits and send them to your field team' }) %>
+
+    <main class="flex-1 p-8 space-y-6">
+
+      <div class="grid grid-cols-1 xl:grid-cols-3 gap-6">
+
+        <!-- Assign form -->
+        <section class="bg-white border border-slate-200 rounded-lg overflow-hidden self-start">
+          <div class="px-6 py-4 border-b border-slate-200">
+            <h2 class="text-sm font-semibold text-ink">Assign visits</h2>
+            <p class="text-xs text-slate-500 mt-0.5">Sent to the rep immediately</p>
+          </div>
+          <form id="assign-form" class="p-6 space-y-4">
+            <div>
+              <label for="f-rep" class="block text-xs font-medium text-slate-600 mb-1">Representative</label>
+              <select id="f-rep" required class="w-full text-sm border border-slate-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-accent/40 focus:border-accent">
+                <option value="">Select a representative…</option>
+              </select>
+            </div>
+
+            <div class="grid grid-cols-2 gap-3">
+              <div>
+                <label for="f-date" class="block text-xs font-medium text-slate-600 mb-1">Date</label>
+                <input type="date" id="f-date" required class="w-full text-sm border border-slate-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-accent/40 focus:border-accent">
+              </div>
+              <div>
+                <label for="f-time" class="block text-xs font-medium text-slate-600 mb-1">Time <span class="text-slate-400">(optional)</span></label>
+                <input type="time" id="f-time" class="w-full text-sm border border-slate-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-accent/40 focus:border-accent">
+              </div>
+            </div>
+
+            <div>
+              <span class="block text-xs font-medium text-slate-600 mb-1">Clients</span>
+              <div id="f-clients" class="border border-slate-300 rounded-md divide-y divide-slate-100 max-h-56 overflow-y-auto">
+                <p class="px-3 py-3 text-sm text-slate-400">Loading clients…</p>
+              </div>
+              <p class="text-xs text-slate-400 mt-1">Select more than one to assign a route. A time applies only to a single client.</p>
+            </div>
+
+            <div>
+              <label for="f-priority" class="block text-xs font-medium text-slate-600 mb-1">Priority</label>
+              <select id="f-priority" class="w-full text-sm border border-slate-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-accent/40 focus:border-accent">
+                <option value="NORMAL">Normal</option>
+                <option value="HIGH">High</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="f-note" class="block text-xs font-medium text-slate-600 mb-1">Note <span class="text-slate-400">(optional)</span></label>
+              <textarea id="f-note" rows="2" maxlength="500" placeholder="What should they do there?"
+                class="w-full text-sm border border-slate-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-accent/40 focus:border-accent"></textarea>
+            </div>
+
+            <p id="form-msg" class="text-xs hidden"></p>
+
+            <button type="submit" id="f-submit"
+              class="w-full text-sm font-medium text-white bg-accent hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed px-4 py-2.5 rounded-md transition-colors">
+              Assign visits
+            </button>
+          </form>
+        </section>
+
+        <!-- Schedule board -->
+        <section class="xl:col-span-2 bg-white border border-slate-200 rounded-lg overflow-hidden">
+          <div class="px-6 py-4 border-b border-slate-200 flex flex-wrap items-center justify-between gap-3">
+            <div>
+              <h2 class="text-sm font-semibold text-ink">Planned visits</h2>
+              <p id="range-label" class="text-xs text-slate-500 mt-0.5">Loading…</p>
+            </div>
+            <div class="flex items-center gap-2">
+              <select id="filter-rep" class="text-sm border border-slate-300 rounded-md px-2.5 py-1.5">
+                <option value="">All representatives</option>
+              </select>
+              <select id="filter-range" class="text-sm border border-slate-300 rounded-md px-2.5 py-1.5">
+                <option value="today">Today</option>
+                <option value="upcoming" selected>Next 7 days</option>
+                <option value="past">Last 7 days</option>
+              </select>
+            </div>
+          </div>
+          <div id="board" class="divide-y divide-slate-100">
+            <p class="px-6 py-8 text-center text-sm text-slate-400">Loading…</p>
+          </div>
+        </section>
+
+      </div>
+    </main>
+  </div>
+
+  <script src="/js/schedule.js"></script>
+</body>
+</html>

@@ -1,0 +1,69 @@
+<%
+  function navClasses(isActive) {
+    return isActive
+      ? 'flex items-center gap-3 px-3 py-2.5 rounded-md text-sm font-medium bg-sidebar-hover text-white border-l-2 border-accent'
+      : 'flex items-center gap-3 px-3 py-2.5 rounded-md text-sm font-medium text-slate-400 hover:bg-sidebar-hover hover:text-white border-l-2 border-transparent transition-colors';
+  }
+%>
+<aside class="fixed inset-y-0 left-0 w-64 bg-sidebar text-slate-300 flex flex-col z-10">
+  <div class="h-16 flex items-center gap-2 px-6 border-b border-slate-800 flex-shrink-0">
+    <span class="w-2 h-2 rounded-full bg-accent"></span>
+    <span class="font-semibold text-white tracking-tight">TrackPoint</span>
+  </div>
+
+  <nav class="flex-1 px-3 py-6 space-y-1 overflow-y-auto">
+    <a href="/dashboard" class="<%= navClasses(active === 'live-map') %>">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"/>
+        <circle cx="12" cy="10" r="2.5"/>
+      </svg>
+      Live Map
+    </a>
+    <a href="/activity-logs" class="<%= navClasses(active === 'activity-logs') %>">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M9 6h11M9 12h11M9 18h11"/>
+        <path d="M4 6h.01M4 12h.01M4 18h.01"/>
+      </svg>
+      Activity Logs
+    </a>
+    <a href="/team-metrics" class="<%= navClasses(active === 'team-metrics') %>">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M4 20V10M12 20V4M20 20v-7"/>
+      </svg>
+      Team Metrics
+    </a>
+    <a href="/customers" class="<%= navClasses(active === 'customers') %>">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 21V9l7-5 7 5v12"/>
+        <path d="M9 21v-5h4v5M21 21H3"/>
+      </svg>
+      Customers
+    </a>
+    <a href="/schedule" class="<%= navClasses(active === 'schedule') %>">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="3" y="4" width="18" height="17" rx="2"/>
+        <path d="M3 10h18M8 2v4M16 2v4M9 15l2 2 4-4"/>
+      </svg>
+      Schedule
+    </a>
+    <a href="/reports" class="<%= navClasses(active === 'reports') %>">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/>
+        <path d="M14 3v5h5M9 13h6M9 17h4"/>
+      </svg>
+      Reports
+    </a>
+  </nav>
+
+  <div class="px-4 py-4 border-t border-slate-800 flex-shrink-0">
+    <div class="flex items-center justify-between">
+      <div class="min-w-0">
+        <p class="text-sm font-medium text-white truncate"><%= currentUser ? (currentUser.fullName || currentUser.username) : 'Admin' %></p>
+        <p class="text-xs text-slate-500"><%= currentUser && currentUser.role ? currentUser.role.charAt(0) + currentUser.role.slice(1).toLowerCase() : 'Dashboard admin' %></p>
+      </div>
+      <form action="/logout" method="POST">
+        <button type="submit" class="text-xs text-slate-400 hover:text-white transition-colors">Log out</button>
+      </form>
+    </div>
+  </div>
+</aside>

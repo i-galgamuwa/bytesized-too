@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('partials/head', { title: 'Live Map', includeLeaflet: true }) %>
+</head>
+<body class="bg-slate-50 font-sans text-ink antialiased">
+  <%- include('partials/sidebar', { active }) %>
+
+  <div class="ml-64 min-h-screen flex flex-col">
+    <%- include('partials/topbar', { title: 'Live Map', subtitle: 'Real-time field representative locations' }) %>
+
+    <main class="flex-1 p-8 space-y-6">
+      <section class="grid grid-cols-1 lg:grid-cols-4 gap-6">
+        <div class="lg:col-span-3 bg-white border border-slate-200 rounded-lg overflow-hidden">
+          <div id="live-map" class="w-full" style="height: 60vh;"></div>
+        </div>
+
+        <aside class="bg-white border border-slate-200 rounded-lg flex flex-col overflow-hidden" style="max-height: 60vh;">
+          <div class="px-4 py-3 border-b border-slate-200">
+            <h2 class="text-sm font-semibold text-ink">On shift now</h2>
+            <p class="text-xs text-slate-500 mt-0.5">Select a name to locate them</p>
+          </div>
+          <ul id="rep-list" class="flex-1 overflow-y-auto divide-y divide-slate-100">
+            <li class="px-4 py-6 text-center text-sm text-slate-400">Loading…</li>
+          </ul>
+        </aside>
+      </section>
+
+      <section class="bg-white border border-slate-200 rounded-lg">
+        <div class="px-6 py-4 border-b border-slate-200 flex items-center justify-between">
+          <h2 class="text-sm font-semibold text-ink">Latest visit logs</h2>
+          <a href="/activity-logs" class="text-sm text-accent hover:underline">View all</a>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="min-w-full text-sm">
+            <thead>
+              <tr class="text-left text-xs text-slate-500 uppercase tracking-wide bg-slate-50 border-b border-slate-200">
+                <th class="px-6 py-3 font-medium">Representative</th>
+                <th class="px-6 py-3 font-medium">Client</th>
+                <th class="px-6 py-3 font-medium">Address</th>
+                <th class="px-6 py-3 font-medium">Check-in</th>
+                <th class="px-6 py-3 font-medium">Duration</th>
+                <th class="px-6 py-3 font-medium">Status</th>
+              </tr>
+            </thead>
+            <tbody id="latest-logs-body" class="divide-y divide-slate-100">
+              <tr><td colspan="6" class="px-6 py-6 text-center text-slate-400">Loading…</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script src="/js/live-map.js"></script>
+</body>
+</html>

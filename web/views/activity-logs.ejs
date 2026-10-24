@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('partials/head', { title: 'Activity Logs' }) %>
+</head>
+<body class="bg-slate-50 font-sans text-ink antialiased">
+  <%- include('partials/sidebar', { active }) %>
+
+  <div class="ml-64 min-h-screen flex flex-col">
+    <%- include('partials/topbar', { title: 'Activity Logs', subtitle: 'Daily visit records submitted by field representatives' }) %>
+
+    <main class="flex-1 p-8 space-y-6">
+      <section class="bg-white border border-slate-200 rounded-lg p-4 flex flex-wrap items-end gap-4">
+        <div>
+          <label class="block text-xs font-medium text-slate-500 mb-1" for="filter-date">Date</label>
+          <input type="date" id="filter-date"
+            class="border border-slate-300 rounded-md px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent">
+        </div>
+        <div>
+          <label class="block text-xs font-medium text-slate-500 mb-1" for="filter-rep">Representative</label>
+          <select id="filter-rep"
+            class="border border-slate-300 rounded-md px-3 py-1.5 text-sm min-w-[180px] focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent">
+            <option value="">All representatives</option>
+          </select>
+        </div>
+        <label class="flex items-center gap-2 text-sm text-slate-600 pb-1.5">
+          <input type="checkbox" id="filter-verified" class="rounded border-slate-300 text-accent focus:ring-accent">
+          Verified only
+        </label>
+        <button id="apply-filters" class="ml-auto text-sm font-medium text-white bg-accent hover:bg-blue-700 px-4 py-1.5 rounded-md transition-colors">
+          Apply filters
+        </button>
+      </section>
+
+      <section class="bg-white border border-slate-200 rounded-lg">
+        <div class="overflow-x-auto">
+          <table class="min-w-full text-sm">
+            <thead>
+              <tr class="text-left text-xs text-slate-500 uppercase tracking-wide bg-slate-50 border-b border-slate-200">
+                <th class="px-6 py-3 font-medium">Representative</th>
+                <th class="px-6 py-3 font-medium">Client</th>
+                <th class="px-6 py-3 font-medium">Address</th>
+                <th class="px-6 py-3 font-medium">Activity</th>
+                <th class="px-6 py-3 font-medium">Check-in</th>
+                <th class="px-6 py-3 font-medium">Duration</th>
+                <th class="px-6 py-3 font-medium">Coordinates</th>
+                <th class="px-6 py-3 font-medium">Status</th>
+              </tr>
+            </thead>
+            <tbody id="logs-body" class="divide-y divide-slate-100">
+              <tr><td colspan="8" class="px-6 py-6 text-center text-slate-400">Loading…</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="px-6 py-4 border-t border-slate-200 flex justify-center">
+          <button id="load-more" class="text-sm font-medium text-accent hover:underline">Load more</button>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="/js/activity-logs.js"></script>
+</body>
+</html>

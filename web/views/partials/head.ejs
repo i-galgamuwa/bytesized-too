@@ -1,0 +1,40 @@
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title><%= title %> · TrackPoint</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        fontFamily: {
+          sans: ['"IBM Plex Sans"', 'sans-serif'],
+          mono: ['"IBM Plex Mono"', 'monospace']
+        },
+        colors: {
+          ink: '#0F172A',
+          sidebar: '#111827',
+          'sidebar-hover': '#1F2937',
+          accent: '#2563EB',
+          verified: '#0D9488',
+          pending: '#D97706'
+        }
+      }
+    }
+  };
+</script>
+
+<% if (typeof includeLeaflet !== 'undefined' && includeLeaflet) { %>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+  integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+<% } %>
+
+<% if (typeof includeCharts !== 'undefined' && includeCharts) { %>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+<% } %>
+
+<link rel="stylesheet" href="/css/style.css">

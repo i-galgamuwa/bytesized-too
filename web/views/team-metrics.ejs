@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('partials/head', { title: 'Team Metrics', includeCharts: true }) %>
+</head>
+<body class="bg-slate-50 font-sans text-ink antialiased">
+  <%- include('partials/sidebar', { active }) %>
+
+  <div class="ml-64 min-h-screen flex flex-col">
+    <%- include('partials/topbar', { title: 'Team Metrics', subtitle: 'Efficiency and coverage across the field team' }) %>
+
+    <main class="flex-1 p-8 space-y-6">
+      <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div class="bg-white border border-slate-200 rounded-lg p-5">
+          <p class="text-xs font-medium text-slate-500">Total visits</p>
+          <p id="stat-total" class="mt-2 text-2xl font-semibold font-mono text-ink">—</p>
+        </div>
+        <div class="bg-white border border-slate-200 rounded-lg p-5">
+          <p class="text-xs font-medium text-slate-500">Avg. visit duration</p>
+          <p id="stat-duration" class="mt-2 text-2xl font-semibold font-mono text-ink">—</p>
+        </div>
+        <div class="bg-white border border-slate-200 rounded-lg p-5">
+          <p class="text-xs font-medium text-slate-500">Verified rate</p>
+          <p id="stat-verified" class="mt-2 text-2xl font-semibold font-mono text-verified">—</p>
+        </div>
+        <div class="bg-white border border-slate-200 rounded-lg p-5">
+          <p class="text-xs font-medium text-slate-500">Active representatives</p>
+          <p id="stat-reps" class="mt-2 text-2xl font-semibold font-mono text-ink">—</p>
+        </div>
+      </section>
+
+      <section class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div class="bg-white border border-slate-200 rounded-lg p-6">
+          <h2 class="text-sm font-semibold text-ink mb-4">Visits per representative</h2>
+          <canvas id="chart-per-rep" height="220"></canvas>
+        </div>
+        <div class="bg-white border border-slate-200 rounded-lg p-6">
+          <h2 class="text-sm font-semibold text-ink mb-4">Verified vs unverified</h2>
+          <canvas id="chart-verified" height="220"></canvas>
+        </div>
+      </section>
+
+      <section class="bg-white border border-slate-200 rounded-lg p-6">
+        <h2 class="text-sm font-semibold text-ink mb-4">Visits — last 7 days</h2>
+        <canvas id="chart-trend" height="100"></canvas>
+      </section>
+    </main>
+  </div>
+
+  <script src="/js/team-metrics.js"></script>
+</body>
+</html>
