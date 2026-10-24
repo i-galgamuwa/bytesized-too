@@ -8,7 +8,7 @@ import '../theme/app_colors.dart';
 import 'shift_detail_screen.dart';
 
 class ShiftsScreen extends StatefulWidget {
-  ShiftsScreen({
+  const ShiftsScreen({
     super.key,
     required this.user,
     required this.onOpenDrawer,
@@ -27,6 +27,7 @@ class _ShiftsScreenState extends State<ShiftsScreen> {
   List<ShiftSummary> _past = [];
   List<ScheduledShift> _upcoming = [];
   bool _loading = true;
+  String? _error;
 
   @override
   void initState() {
@@ -35,14 +36,28 @@ class _ShiftsScreenState extends State<ShiftsScreen> {
   }
 
   Future<void> _load() async {
-    final past = await _stats.loadShifts(widget.user.driverId);
-    final upcoming = await _schedule.getUpcomingShifts();
-    if (!mounted) return;
     setState(() {
-      _past = past;
-      _upcoming = upcoming;
-      _loading = false;
+      _loading = true;
+      _error = null;
     });
+    try {
+      final pastFuture = _stats.loadShifts(widget.user.driverId);
+      final upcomingFuture = _schedule.getUpcomingShifts();
+      final past = await pastFuture;
+      final upcoming = await upcomingFuture;
+      if (!mounted) return;
+      setState(() {
+        _past = past;
+        _upcoming = upcoming;
+        _loading = false;
+      });
+    } catch (error) {
+      if (!mounted) return;
+      setState(() {
+        _error = 'Could not load shifts: $error';
+        _loading = false;
+      });
+    }
   }
 
   String _duration(Duration d) {
@@ -68,7 +83,9 @@ class _ShiftsScreenState extends State<ShiftsScreen> {
                 icon: Icon(Icons.menu, color: context.colors.cream),
               ),
               Text(
-                'Shifts', style: TextStyle(color: context.colors.cream,
+                'Shifts',
+                style: TextStyle(
+                  color: context.colors.cream,
                   fontSize: 22,
                   fontWeight: FontWeight.w700,
                 ),
@@ -81,6 +98,30 @@ class _ShiftsScreenState extends State<ShiftsScreen> {
                 child: CircularProgressIndicator(color: context.colors.cream),
               ),
             )
+          else if (_error != null)
+            Expanded(
+              child: Center(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      _error!,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(color: context.colors.muted),
+                    ),
+                    SizedBox(height: 12),
+                    TextButton.icon(
+                      onPressed: _load,
+                      icon: Icon(Icons.refresh, color: context.colors.gold),
+                      label: Text(
+                        'Retry',
+                        style: TextStyle(color: context.colors.gold),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            )
           else
             Expanded(
               child: RefreshIndicator(
@@ -90,7 +131,9 @@ class _ShiftsScreenState extends State<ShiftsScreen> {
                 child: ListView(
                   children: [
                     Text(
-                      'Upcoming shifts', style: TextStyle(color: context.colors.gold,
+                      'Upcoming shifts',
+                      style: TextStyle(
+                        color: context.colors.gold,
                         fontWeight: FontWeight.w700,
                       ),
                     ),
@@ -110,7 +153,9 @@ class _ShiftsScreenState extends State<ShiftsScreen> {
                                 borderRadius: BorderRadius.circular(8),
                               ),
                               child: Text(
-                                'SAMPLE', style: TextStyle(color: context.colors.gold,
+                                'SAMPLE',
+                                style: TextStyle(
+                                  color: context.colors.gold,
                                   fontSize: 11,
                                   fontWeight: FontWeight.bold,
                                 ),
@@ -119,7 +164,8 @@ class _ShiftsScreenState extends State<ShiftsScreen> {
                             SizedBox(height: 8),
                             Text(
                               shift.title,
-                              style: TextStyle(color: context.colors.cream,
+                              style: TextStyle(
+                                color: context.colors.cream,
                                 fontWeight: FontWeight.w600,
                               ),
                             ),
@@ -135,7 +181,9 @@ class _ShiftsScreenState extends State<ShiftsScreen> {
                     ),
                     SizedBox(height: 20),
                     Text(
-                      'Past shifts', style: TextStyle(color: context.colors.gold,
+                      'Past shifts',
+                      style: TextStyle(
+                        color: context.colors.gold,
                         fontWeight: FontWeight.w700,
                       ),
                     ),
@@ -164,7 +212,8 @@ class _ShiftsScreenState extends State<ShiftsScreen> {
                               children: [
                                 Text(
                                   dateFormat.format(shift.startTime),
-                                  style: TextStyle(color: context.colors.cream,
+                                  style: TextStyle(
+                                    color: context.colors.cream,
                                     fontWeight: FontWeight.w700,
                                   ),
                                 ),

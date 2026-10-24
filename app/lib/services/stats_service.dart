@@ -58,11 +58,23 @@ class StatsService {
   }
 
   Future<List<ShiftSummary>> loadShifts(String driverId) async {
+    return (await _loadShiftData(driverId)).shifts;
+  }
+
+  Future<({List<ShiftSummary> shifts, List<Map<String, dynamic>> logs})>
+  _loadShiftData(String driverId) async {
     final rows = await DatabaseHelper.instance.getShiftsForDriver(driverId);
+    final logs = await DatabaseHelper.instance.getLogsForDriver(driverId);
+    final logsByShift = <int, List<Map<String, dynamic>>>{};
+    for (final row in logs) {
+      final shiftId = (row['shift_id'] as num?)?.toInt();
+      if (shiftId == null) continue;
+      logsByShift.putIfAbsent(shiftId, () => []).add(row);
+    }
+
     final summaries = <ShiftSummary>[];
     for (final row in rows) {
       final id = row['id'] as int;
-      final logs = await DatabaseHelper.instance.getLogsForShift(id);
       summaries.add(
         ShiftSummary(
           id: id,
@@ -71,16 +83,17 @@ class StatsService {
           endTime: row['end_time'] == null
               ? null
               : DateTime.tryParse(row['end_time'] as String),
-          distanceKm: distanceKmFromLogs(logs),
+          distanceKm: distanceKmFromLogs(logsByShift[id] ?? const []),
         ),
       );
     }
-    return summaries;
+    return (shifts: summaries, logs: logs);
   }
 
   Future<PerformanceStats> loadPerformance(String driverId) async {
-    final shifts = await loadShifts(driverId);
-    final allLogs = await DatabaseHelper.instance.getLogsForDriver(driverId);
+    final shiftData = await _loadShiftData(driverId);
+    final shifts = shiftData.shifts;
+    final allLogs = shiftData.logs;
     final visitCount = await DatabaseHelper.instance.getVisitCount(driverId);
     final visits = await DatabaseHelper.instance.getVisitsForDriver(driverId);
 
@@ -98,19 +111,18 @@ class StatsService {
       if (shiftId == null) continue;
       logsByShift.putIfAbsent(shiftId, () => []).add(row);
     }
-    final daily = RouteMetrics.distanceKmByDay(
-      logsByShift.values,
-      weekStart,
-    );
+    final daily = RouteMetrics.distanceKmByDay(logsByShift.values, weekStart);
 
     final dailyVisitCounts = List<int>.filled(7, 0);
     for (final visit in visits) {
-      final timestamp =
-          DateTime.tryParse(visit['timestamp'] as String? ?? '')?.toLocal();
+      final timestamp = DateTime.tryParse(visit['timestamp'] as String? ?? '')
+          ?.toLocal();
       if (timestamp == null) continue;
       final visitDay = DateTime(timestamp.year, timestamp.month, timestamp.day);
       final index = DateTime.utc(visitDay.year, visitDay.month, visitDay.day)
-          .difference(DateTime.utc(weekStart.year, weekStart.month, weekStart.day))
+          .difference(
+            DateTime.utc(weekStart.year, weekStart.month, weekStart.day),
+          )
           .inDays;
       if (index >= 0 && index < dailyVisitCounts.length) {
         dailyVisitCounts[index] += 1;
@@ -125,8 +137,9 @@ class StatsService {
         weeklyShiftCount += 1;
       }
       final shiftEnd = shift.endTime ?? now;
-      final overlapStart =
-          shift.startTime.isAfter(weekStart) ? shift.startTime : weekStart;
+      final overlapStart = shift.startTime.isAfter(weekStart)
+          ? shift.startTime
+          : weekStart;
       final overlapEnd = shiftEnd.isBefore(weekEnd) ? shiftEnd : weekEnd;
       if (overlapEnd.isAfter(overlapStart)) {
         weeklyHours += overlapEnd.difference(overlapStart).inSeconds / 3600;
@@ -137,8 +150,7 @@ class StatsService {
       0,
       (sum, count) => sum + count,
     );
-    final weeklyDistance =
-        daily.fold<double>(0, (sum, km) => sum + km);
+    final weeklyDistance = daily.fold<double>(0, (sum, km) => sum + km);
 
     return PerformanceStats(
       totalShifts: shifts.length,

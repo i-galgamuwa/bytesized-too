@@ -1,4 +1,3 @@
-import 'package:intl/intl.dart';
 import 'api_client.dart';
 
 class ScheduledShift {

@@ -8,7 +8,7 @@ import '../theme/app_colors.dart';
 import '../widgets/cream_button.dart';
 
 class ProfileScreen extends StatefulWidget {
-  ProfileScreen({
+  const ProfileScreen({
     super.key,
     required this.user,
     required this.onOpenDrawer,
@@ -119,7 +119,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     return SwitchListTile(
                       title: Text('Dark Mode', style: TextStyle(color: context.colors.cream)),
                       value: currentMode == ThemeMode.dark,
-                      activeColor: context.colors.gold,
+                      activeThumbColor: context.colors.gold,
                       onChanged: (val) async {
                         themeNotifier.value = val ? ThemeMode.dark : ThemeMode.light;
                         final prefs = await SharedPreferences.getInstance();

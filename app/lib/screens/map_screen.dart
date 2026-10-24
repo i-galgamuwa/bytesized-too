@@ -21,7 +21,7 @@ import '../widgets/cream_button.dart';
 import '../services/api_client.dart';
 
 class MapScreen extends StatefulWidget {
-  MapScreen({super.key, required this.user});
+  const MapScreen({super.key, required this.user});
 
   final AuthUser user;
 

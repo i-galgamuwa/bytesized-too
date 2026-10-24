@@ -12,12 +12,13 @@ import '../screens/performance_screen.dart';
 import '../screens/profile_screen.dart';
 import '../screens/shifts_screen.dart';
 import '../services/auth_service.dart';
+import '../services/api_client.dart';
 import '../theme/app_colors.dart';
 import 'app_background.dart';
 
 /// Holds Home / Performance / Shifts / Profile plus the side menu.
 class MainShell extends StatefulWidget {
-  MainShell({super.key, required this.user});
+  const MainShell({super.key, required this.user});
 
   final AuthUser user;
 
@@ -31,6 +32,7 @@ class _MainShellState extends State<MainShell> {
   late AuthUser _user;
   int _index = 0;
   int _homeRefreshToken = 0;
+  bool _loggingOut = false;
 
   @override
   void initState() {
@@ -45,7 +47,7 @@ class _MainShellState extends State<MainShell> {
     final shift = await DatabaseHelper.instance.getActiveShift(
       driverId: _user.driverId,
     );
-    if (shift == null || !mounted) return;
+    if (shift == null || !mounted || _loggingOut) return;
 
     // Keep the stored shift visible even if location permission was removed.
     // Resume GPS only when the operating system still allows location access.
@@ -56,7 +58,8 @@ class _MainShellState extends State<MainShell> {
       final hasPermission = isAndroid
           ? permission == LocationPermission.always
           : permission == LocationPermission.always ||
-              permission == LocationPermission.whileInUse;
+                permission == LocationPermission.whileInUse;
+      if (!mounted || _loggingOut) return;
       if (hasPermission && !await FlutterBackgroundService().isRunning()) {
         await startBackgroundTracking();
       }
@@ -65,12 +68,9 @@ class _MainShellState extends State<MainShell> {
       // unavailable or permission has been revoked.
     }
 
-    if (!mounted) return;
-    await Navigator.of(context).push(
-      MaterialPageRoute<bool>(
-        builder: (_) => MapScreen(user: _user),
-      ),
-    );
+    if (!mounted || _loggingOut) return;
+    await Navigator.of(context)
+        .push(MaterialPageRoute<bool>(builder: (_) => MapScreen(user: _user)));
     if (mounted) {
       // Refresh visit counts and the Start/View tracking button after the
       // automatic map screen closes.
@@ -86,10 +86,30 @@ class _MainShellState extends State<MainShell> {
   }
 
   Future<void> _logout() async {
+    if (_loggingOut) return;
+    _loggingOut = true;
     Navigator.of(context).pop();
-    await stopBackgroundTracking();
-    await DatabaseHelper.instance.endActiveShift(_user.driverId);
-    await _authService.logout();
+    try {
+      await stopBackgroundTracking();
+    } catch (error) {
+      debugPrint('Failed to stop background tracking during logout: $error');
+    }
+    try {
+      await ApiClient.post('/shifts/end').timeout(Duration(seconds: 3));
+    } catch (error) {
+      // A missing shift, active visit, or offline backend must not block logout.
+      debugPrint('Failed to end backend shift during logout: $error');
+    }
+    try {
+      await DatabaseHelper.instance.endActiveShift(_user.driverId);
+    } catch (error) {
+      debugPrint('Failed to close local shift during logout: $error');
+    }
+    try {
+      await _authService.logout();
+    } catch (error) {
+      debugPrint('Failed to clear saved session during logout: $error');
+    }
     if (!mounted) return;
     Navigator.of(context).pushAndRemoveUntil(
       MaterialPageRoute<void>(builder: (_) => LoginScreen()),
@@ -180,7 +200,8 @@ class _AppDrawer extends StatelessWidget {
               ListTile(
                 leading: Icon(Icons.logout, color: context.colors.cream),
                 title: Text(
-                  'Logout', style: TextStyle(color: context.colors.cream),
+                  'Logout',
+                  style: TextStyle(color: context.colors.cream),
                 ),
                 onTap: onLogout,
               ),

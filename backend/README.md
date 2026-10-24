@@ -1,11 +1,11 @@
 # ByteSized GPS Sales & Marketing Tracking System
 
-Java (Spring Boot 4, Java 21) backend with live GPS tracking for field agents, geofenced visit
+Java (Spring Boot 4, Java 25) backend with live GPS tracking for field agents, geofenced visit
 verification, and live location updates for the web dashboard (OpenStreetMap / Leaflet on the frontend).
 
 ## Run
 
-Requirements: Java 21. Maven, a database and Docker are **not** needed (Maven wrapper + embedded H2).
+Requirements: Java 25. Maven, a database and Docker are **not** needed (Maven wrapper + embedded H2).
 
 ```bash
 cd backend

@@ -22,13 +22,13 @@ Future<void> main() async {
 }
 
 class GpsTrackerApp extends StatelessWidget {
-  GpsTrackerApp({super.key});
+  const GpsTrackerApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder<ThemeMode>(
       valueListenable: themeNotifier,
-      builder: (_, ThemeMode currentMode, __) {
+      builder: (_, ThemeMode currentMode, child) {
         return MaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'GPS Sales Tracker',
@@ -70,7 +70,7 @@ class GpsTrackerApp extends StatelessWidget {
 
 /// Shows Home if a driver is already saved, otherwise Login.
 class AuthGate extends StatefulWidget {
-  AuthGate({super.key});
+  const AuthGate({super.key});
 
   @override
   State<AuthGate> createState() => _AuthGateState();

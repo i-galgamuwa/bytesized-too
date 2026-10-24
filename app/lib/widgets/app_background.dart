@@ -4,7 +4,7 @@ import '../theme/app_colors.dart';
 
 /// Dark brown gradient behind every screen.
 class AppBackground extends StatelessWidget {
-  AppBackground({super.key, required this.child});
+  const AppBackground({super.key, required this.child});
 
   final Widget child;
 

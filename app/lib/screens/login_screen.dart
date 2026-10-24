@@ -8,7 +8,7 @@ import '../widgets/main_shell.dart';
 
 /// First screen: Driver ID + password.
 class LoginScreen extends StatefulWidget {
-  LoginScreen({super.key});
+  const LoginScreen({super.key});
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();

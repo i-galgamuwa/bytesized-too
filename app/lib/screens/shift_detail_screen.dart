@@ -11,7 +11,7 @@ import '../theme/app_colors.dart';
 import '../widgets/app_background.dart';
 
 class ShiftDetailScreen extends StatelessWidget {
-  ShiftDetailScreen({super.key, required this.shift});
+  const ShiftDetailScreen({super.key, required this.shift});
 
   final ShiftSummary shift;
 

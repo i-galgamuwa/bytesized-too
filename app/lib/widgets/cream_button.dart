@@ -4,7 +4,7 @@ import '../theme/app_colors.dart';
 
 /// The big rounded cream button used on login, home, and profile.
 class CreamButton extends StatelessWidget {
-  CreamButton({
+  const CreamButton({
     super.key,
     required this.label,
     required this.onPressed,

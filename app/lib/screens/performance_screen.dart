@@ -7,7 +7,7 @@ import '../services/stats_service.dart';
 import '../theme/app_colors.dart';
 
 class PerformanceScreen extends StatefulWidget {
-  PerformanceScreen({
+  const PerformanceScreen({
     super.key,
     required this.user,
     required this.onOpenDrawer,
@@ -24,6 +24,7 @@ class _PerformanceScreenState extends State<PerformanceScreen> {
   final _statsService = StatsService();
   PerformanceStats? _stats;
   bool _loading = true;
+  String? _error;
 
   @override
   void initState() {
@@ -32,12 +33,24 @@ class _PerformanceScreenState extends State<PerformanceScreen> {
   }
 
   Future<void> _load() async {
-    final stats = await _statsService.loadPerformance(widget.user.driverId);
-    if (!mounted) return;
     setState(() {
-      _stats = stats;
-      _loading = false;
+      _loading = true;
+      _error = null;
     });
+    try {
+      final stats = await _statsService.loadPerformance(widget.user.driverId);
+      if (!mounted) return;
+      setState(() {
+        _stats = stats;
+        _loading = false;
+      });
+    } catch (error) {
+      if (!mounted) return;
+      setState(() {
+        _error = 'Could not load performance: $error';
+        _loading = false;
+      });
+    }
   }
 
   @override
@@ -54,17 +67,43 @@ class _PerformanceScreenState extends State<PerformanceScreen> {
                 icon: Icon(Icons.menu, color: context.colors.cream),
               ),
               Text(
-                'Performance', style: TextStyle(color: context.colors.cream,
+                'Performance',
+                style: TextStyle(
+                  color: context.colors.cream,
                   fontSize: 22,
                   fontWeight: FontWeight.w700,
                 ),
               ),
             ],
           ),
-          if (_loading || stats == null)
+          if (_loading)
             Expanded(
               child: Center(
                 child: CircularProgressIndicator(color: context.colors.cream),
+              ),
+            )
+          else if (_error != null || stats == null)
+            Expanded(
+              child: Center(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      _error ?? 'Performance data is unavailable.',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(color: context.colors.muted),
+                    ),
+                    SizedBox(height: 12),
+                    TextButton.icon(
+                      onPressed: _load,
+                      icon: Icon(Icons.refresh, color: context.colors.gold),
+                      label: Text(
+                        'Retry',
+                        style: TextStyle(color: context.colors.gold),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             )
           else
@@ -121,12 +160,14 @@ class _PerformanceScreenState extends State<PerformanceScreen> {
                             child: Column(
                               children: [
                                 Text(
-                                  'Distance · last 7 days', style: TextStyle(color: context.colors.muted),
+                                  'Distance · last 7 days',
+                                  style: TextStyle(color: context.colors.muted),
                                 ),
                                 SizedBox(height: 8),
                                 Text(
                                   stats.totalDistanceKm.toStringAsFixed(1),
-                                  style: TextStyle(color: context.colors.cream,
+                                  style: TextStyle(
+                                    color: context.colors.cream,
                                     fontSize: 22,
                                     fontWeight: FontWeight.bold,
                                   ),
@@ -151,7 +192,8 @@ class _PerformanceScreenState extends State<PerformanceScreen> {
                                 ),
                                 Text(
                                   '${stats.totalDistanceKm.toStringAsFixed(0)} km',
-                                  style: TextStyle(color: context.colors.cream,
+                                  style: TextStyle(
+                                    color: context.colors.cream,
                                     fontWeight: FontWeight.w700,
                                   ),
                                 ),
@@ -170,7 +212,8 @@ class _PerformanceScreenState extends State<PerformanceScreen> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  'Daily activity', style: TextStyle(color: context.colors.muted),
+                                  'Daily activity',
+                                  style: TextStyle(color: context.colors.muted),
                                 ),
                                 SizedBox(height: 12),
                                 SizedBox(
@@ -206,10 +249,11 @@ class _PerformanceScreenState extends State<PerformanceScreen> {
                                                 return const SizedBox.shrink();
                                               }
                                               return Text(
-                                                DateFormat('EEE').format(
-                                                  stats.dailyDates[i],
-                                                ),
-                                                style: TextStyle(color: context.colors.muted,
+                                                DateFormat(
+                                                  'EEE',
+                                                ).format(stats.dailyDates[i]),
+                                                style: TextStyle(
+                                                  color: context.colors.muted,
                                                   fontSize: 10,
                                                 ),
                                               );
@@ -245,17 +289,20 @@ class _PerformanceScreenState extends State<PerformanceScreen> {
                             child: Column(
                               children: [
                                 Text(
-                                  'Hours active', style: TextStyle(color: context.colors.muted),
+                                  'Hours active',
+                                  style: TextStyle(color: context.colors.muted),
                                 ),
                                 SizedBox(height: 16),
                                 Icon(
-                                  Icons.access_time, color: context.colors.gold,
+                                  Icons.access_time,
+                                  color: context.colors.gold,
                                   size: 32,
                                 ),
                                 SizedBox(height: 8),
                                 Text(
                                   stats.hoursActive.toStringAsFixed(1),
-                                  style: TextStyle(color: context.colors.cream,
+                                  style: TextStyle(
+                                    color: context.colors.cream,
                                     fontSize: 28,
                                     fontWeight: FontWeight.bold,
                                   ),
@@ -272,7 +319,8 @@ class _PerformanceScreenState extends State<PerformanceScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'Weekly summary', style: TextStyle(color: context.colors.gold),
+                            'Weekly summary',
+                            style: TextStyle(color: context.colors.gold),
                           ),
                           SizedBox(height: 10),
                           _summaryRow('Shifts', '${stats.weeklyShifts}'),

@@ -20,7 +20,7 @@ import '../services/sync_service.dart';
 
 /// Main screen after login: greeting, status, and Start Tracking / live map.
 class HomeScreen extends StatefulWidget {
-  HomeScreen({
+  const HomeScreen({
     super.key,
     required this.user,
     required this.onOpenDrawer,
@@ -132,6 +132,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Future<void> _openMap() async {
+    if (!mounted) return;
     await Navigator.of(context).push(
       MaterialPageRoute<bool>(
         builder: (_) => MapScreen(user: widget.user),
@@ -145,6 +146,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Future<void> _startTracking() async {
     final hasConsent = await TrackingPrefs.hasConsent();
     if (!hasConsent) {
+      if (!mounted) return;
       final agreed = await showDialog<bool>(
         context: context,
         builder: (ctx) => AlertDialog(
