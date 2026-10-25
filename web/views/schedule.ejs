@@ -22,7 +22,7 @@
           <form id="assign-form" class="p-6 space-y-4">
             <div>
               <label for="f-rep" class="block text-xs font-medium text-slate-600 dark:text-slate-300 mb-1">Representative</label>
-              <select id="f-rep" required class="w-full text-sm border border-slate-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-accent/40 focus:border-accent">
+              <select id="f-rep" required class="w-full text-sm border border-slate-300 dark:border-slate-600 dark:bg-slate-800 dark:text-white rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-accent/40 focus:border-accent">
                 <option value="">Select a representative…</option>
               </select>
             </div>
@@ -30,17 +30,17 @@
             <div class="grid grid-cols-2 gap-3">
               <div>
                 <label for="f-date" class="block text-xs font-medium text-slate-600 dark:text-slate-300 mb-1">Date</label>
-                <input type="date" id="f-date" required class="w-full text-sm border border-slate-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-accent/40 focus:border-accent">
+                <input type="date" id="f-date" required class="w-full text-sm border border-slate-300 dark:border-slate-600 dark:bg-slate-800 dark:text-white rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-accent/40 focus:border-accent">
               </div>
               <div>
                 <label for="f-time" class="block text-xs font-medium text-slate-600 dark:text-slate-300 mb-1">Time <span class="text-slate-400">(optional)</span></label>
-                <input type="time" id="f-time" class="w-full text-sm border border-slate-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-accent/40 focus:border-accent">
+                <input type="time" id="f-time" class="w-full text-sm border border-slate-300 dark:border-slate-600 dark:bg-slate-800 dark:text-white rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-accent/40 focus:border-accent">
               </div>
             </div>
 
             <div>
               <span class="block text-xs font-medium text-slate-600 dark:text-slate-300 mb-1">Clients</span>
-              <div id="f-clients" class="border border-slate-300 rounded-md divide-y divide-slate-100 dark:divide-slate-700/50 max-h-56 overflow-y-auto">
+              <div id="f-clients" class="border border-slate-300 dark:border-slate-600 dark:bg-slate-800 dark:text-white rounded-md divide-y divide-slate-100 dark:divide-slate-700/50 max-h-56 overflow-y-auto">
                 <p class="px-3 py-3 text-sm text-slate-400">Loading clients…</p>
               </div>
               <p class="text-xs text-slate-400 mt-1">Select more than one to assign a route. A time applies only to a single client.</p>
@@ -48,7 +48,7 @@
 
             <div>
               <label for="f-priority" class="block text-xs font-medium text-slate-600 dark:text-slate-300 mb-1">Priority</label>
-              <select id="f-priority" class="w-full text-sm border border-slate-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-accent/40 focus:border-accent">
+              <select id="f-priority" class="w-full text-sm border border-slate-300 dark:border-slate-600 dark:bg-slate-800 dark:text-white rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-accent/40 focus:border-accent">
                 <option value="NORMAL">Normal</option>
                 <option value="HIGH">High</option>
               </select>
@@ -57,7 +57,7 @@
             <div>
               <label for="f-note" class="block text-xs font-medium text-slate-600 dark:text-slate-300 mb-1">Note <span class="text-slate-400">(optional)</span></label>
               <textarea id="f-note" rows="2" maxlength="500" placeholder="What should they do there?"
-                class="w-full text-sm border border-slate-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-accent/40 focus:border-accent"></textarea>
+                class="w-full text-sm border border-slate-300 dark:border-slate-600 dark:bg-slate-800 dark:text-white rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-accent/40 focus:border-accent"></textarea>
             </div>
 
             <p id="form-msg" class="text-xs hidden"></p>
@@ -77,10 +77,10 @@
               <p id="range-label" class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Loading…</p>
             </div>
             <div class="flex items-center gap-2">
-              <select id="filter-rep" class="text-sm border border-slate-300 rounded-md px-2.5 py-1.5">
+              <select id="filter-rep" class="text-sm border border-slate-300 dark:border-slate-600 dark:bg-slate-800 dark:text-white rounded-md px-2.5 py-1.5">
                 <option value="">All representatives</option>
               </select>
-              <select id="filter-range" class="text-sm border border-slate-300 rounded-md px-2.5 py-1.5">
+              <select id="filter-range" class="text-sm border border-slate-300 dark:border-slate-600 dark:bg-slate-800 dark:text-white rounded-md px-2.5 py-1.5">
                 <option value="today">Today</option>
                 <option value="upcoming" selected>Next 7 days</option>
                 <option value="past">Last 7 days</option>

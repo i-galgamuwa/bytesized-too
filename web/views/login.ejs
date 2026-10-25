@@ -3,7 +3,7 @@
 <head>
   <%- include('partials/head', { title: 'Sign in' }) %>
 </head>
-<body class="bg-slate-100 font-sans text-ink dark:text-slate-50 antialiased min-h-screen flex items-center justify-center px-4">
+<body class="bg-slate-100 dark:bg-darkBg font-sans text-ink dark:text-slate-50 antialiased min-h-screen flex items-center justify-center px-4">
   <div class="w-full max-w-sm">
     <div class="flex items-center gap-2 justify-center mb-8">
       <span class="w-2 h-2 rounded-full bg-accent"></span>
@@ -15,19 +15,19 @@
       <p class="text-sm text-slate-500 dark:text-slate-400 mb-6">Manager access to the field tracking dashboard.</p>
 
       <% if (error) { %>
-        <div class="mb-4 text-sm text-red-600 bg-red-50 border border-red-100 rounded-md px-3 py-2"><%= error %></div>
+        <div class="mb-4 text-sm text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-900/30 border border-red-100 dark:border-red-800 rounded-md px-3 py-2"><%= error %></div>
       <% } %>
 
       <form action="/login" method="POST" class="space-y-4">
         <div>
           <label class="block text-xs font-medium text-slate-500 dark:text-slate-400 mb-1" for="username">Username</label>
           <input type="text" id="username" name="username" required autocomplete="username"
-            class="w-full border border-slate-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent">
+            class="w-full border border-slate-300 dark:border-slate-600 dark:bg-slate-800 dark:text-white rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent">
         </div>
         <div>
           <label class="block text-xs font-medium text-slate-500 dark:text-slate-400 mb-1" for="password">Password</label>
           <input type="password" id="password" name="password" required autocomplete="current-password"
-            class="w-full border border-slate-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent">
+            class="w-full border border-slate-300 dark:border-slate-600 dark:bg-slate-800 dark:text-white rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent">
         </div>
         <button type="submit" class="w-full bg-accent hover:bg-blue-700 text-white text-sm font-medium py-2.5 rounded-md transition-colors">
           Sign in
