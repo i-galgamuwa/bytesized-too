@@ -1,3 +1,11 @@
+
+<script>
+  if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+    document.documentElement.classList.add('dark')
+  } else {
+    document.documentElement.classList.remove('dark')
+  }
+</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title><%= title %> · TrackPoint</title>
@@ -9,19 +17,23 @@
 <script src="https://cdn.tailwindcss.com"></script>
 <script>
   tailwind.config = {
+    darkMode: 'class',
     theme: {
       extend: {
         fontFamily: {
           sans: ['"IBM Plex Sans"', 'sans-serif'],
           mono: ['"IBM Plex Mono"', 'monospace']
         },
-        colors: {
+                colors: {
           ink: '#0F172A',
           sidebar: '#111827',
           'sidebar-hover': '#1F2937',
           accent: '#2563EB',
           verified: '#0D9488',
-          pending: '#D97706'
+          pending: '#D97706',
+          darkBg: '#0F172A',
+          darkCard: '#1E293B',
+          darkHighlight: '#334155'
         }
       }
     }

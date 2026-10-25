@@ -3,16 +3,16 @@
 <head>
   <%- include('partials/head', { title: 'Sign in' }) %>
 </head>
-<body class="bg-slate-100 font-sans text-ink antialiased min-h-screen flex items-center justify-center px-4">
+<body class="bg-slate-100 font-sans text-ink dark:text-slate-50 antialiased min-h-screen flex items-center justify-center px-4">
   <div class="w-full max-w-sm">
     <div class="flex items-center gap-2 justify-center mb-8">
       <span class="w-2 h-2 rounded-full bg-accent"></span>
       <span class="font-semibold text-lg tracking-tight">TrackPoint</span>
     </div>
 
-    <div class="bg-white border border-slate-200 rounded-lg p-8">
-      <h1 class="text-lg font-semibold text-ink mb-1">Sign in</h1>
-      <p class="text-sm text-slate-500 mb-6">Manager access to the field tracking dashboard.</p>
+    <div class="bg-white dark:bg-darkCard border border-slate-200 dark:border-slate-700 rounded-lg p-8">
+      <h1 class="text-lg font-semibold text-ink dark:text-slate-50 mb-1">Sign in</h1>
+      <p class="text-sm text-slate-500 dark:text-slate-400 mb-6">Manager access to the field tracking dashboard.</p>
 
       <% if (error) { %>
         <div class="mb-4 text-sm text-red-600 bg-red-50 border border-red-100 rounded-md px-3 py-2"><%= error %></div>
@@ -20,12 +20,12 @@
 
       <form action="/login" method="POST" class="space-y-4">
         <div>
-          <label class="block text-xs font-medium text-slate-500 mb-1" for="username">Username</label>
+          <label class="block text-xs font-medium text-slate-500 dark:text-slate-400 mb-1" for="username">Username</label>
           <input type="text" id="username" name="username" required autocomplete="username"
             class="w-full border border-slate-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent">
         </div>
         <div>
-          <label class="block text-xs font-medium text-slate-500 mb-1" for="password">Password</label>
+          <label class="block text-xs font-medium text-slate-500 dark:text-slate-400 mb-1" for="password">Password</label>
           <input type="password" id="password" name="password" required autocomplete="current-password"
             class="w-full border border-slate-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent">
         </div>

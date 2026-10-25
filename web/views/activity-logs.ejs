@@ -3,27 +3,27 @@
 <head>
   <%- include('partials/head', { title: 'Activity Logs' }) %>
 </head>
-<body class="bg-slate-50 font-sans text-ink antialiased">
+<body class="bg-slate-50 dark:bg-darkBg font-sans text-ink dark:text-slate-50 antialiased">
   <%- include('partials/sidebar', { active }) %>
 
   <div class="ml-64 min-h-screen flex flex-col">
     <%- include('partials/topbar', { title: 'Activity Logs', subtitle: 'Daily visit records submitted by field representatives' }) %>
 
     <main class="flex-1 p-8 space-y-6">
-      <section class="bg-white border border-slate-200 rounded-lg p-4 flex flex-wrap items-end gap-4">
+      <section class="bg-white dark:bg-darkCard border border-slate-200 dark:border-slate-700 rounded-lg p-4 flex flex-wrap items-end gap-4">
         <div>
-          <label class="block text-xs font-medium text-slate-500 mb-1" for="filter-date">Date</label>
+          <label class="block text-xs font-medium text-slate-500 dark:text-slate-400 mb-1" for="filter-date">Date</label>
           <input type="date" id="filter-date"
             class="border border-slate-300 rounded-md px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent">
         </div>
         <div>
-          <label class="block text-xs font-medium text-slate-500 mb-1" for="filter-rep">Representative</label>
+          <label class="block text-xs font-medium text-slate-500 dark:text-slate-400 mb-1" for="filter-rep">Representative</label>
           <select id="filter-rep"
             class="border border-slate-300 rounded-md px-3 py-1.5 text-sm min-w-[180px] focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent">
             <option value="">All representatives</option>
           </select>
         </div>
-        <label class="flex items-center gap-2 text-sm text-slate-600 pb-1.5">
+        <label class="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-300 pb-1.5">
           <input type="checkbox" id="filter-verified" class="rounded border-slate-300 text-accent focus:ring-accent">
           Verified only
         </label>
@@ -32,11 +32,11 @@
         </button>
       </section>
 
-      <section class="bg-white border border-slate-200 rounded-lg">
+      <section class="bg-white dark:bg-darkCard border border-slate-200 dark:border-slate-700 rounded-lg">
         <div class="overflow-x-auto">
           <table class="min-w-full text-sm">
             <thead>
-              <tr class="text-left text-xs text-slate-500 uppercase tracking-wide bg-slate-50 border-b border-slate-200">
+              <tr class="text-left text-xs text-slate-500 dark:text-slate-400 uppercase tracking-wide bg-slate-50 dark:bg-darkBg border-b border-slate-200 dark:border-slate-700">
                 <th class="px-6 py-3 font-medium">Representative</th>
                 <th class="px-6 py-3 font-medium">Client</th>
                 <th class="px-6 py-3 font-medium">Address</th>
@@ -47,12 +47,12 @@
                 <th class="px-6 py-3 font-medium">Status</th>
               </tr>
             </thead>
-            <tbody id="logs-body" class="divide-y divide-slate-100">
+            <tbody id="logs-body" class="divide-y divide-slate-100 dark:divide-slate-700/50">
               <tr><td colspan="8" class="px-6 py-6 text-center text-slate-400">Loading…</td></tr>
             </tbody>
           </table>
         </div>
-        <div class="px-6 py-4 border-t border-slate-200 flex justify-center">
+        <div class="px-6 py-4 border-t border-slate-200 dark:border-slate-700 flex justify-center">
           <button id="load-more" class="text-sm font-medium text-accent hover:underline">Load more</button>
         </div>
       </section>

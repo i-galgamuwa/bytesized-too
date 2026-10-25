@@ -695,12 +695,10 @@ class _HudChip extends StatelessWidget {
   const _HudChip({
     required this.icon,
     required this.label,
-    this.expand = false,
   });
 
   final IconData icon;
   final String label;
-  final bool expand;
 
   @override
   Widget build(BuildContext context) {
@@ -711,7 +709,7 @@ class _HudChip extends StatelessWidget {
         borderRadius: BorderRadius.circular(16),
       ),
       child: Row(
-        mainAxisSize: expand ? MainAxisSize.max : MainAxisSize.min,
+        mainAxisSize: MainAxisSize.min,
         children: [
           Icon(icon, color: context.colors.gold, size: 18),
           SizedBox(width: 8),
@@ -724,6 +722,6 @@ class _HudChip extends StatelessWidget {
         ],
       ),
     );
-    return expand ? SizedBox(width: double.infinity, child: child) : child;
+    return child;
   }
 }

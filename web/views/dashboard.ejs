@@ -3,7 +3,7 @@
 <head>
   <%- include('partials/head', { title: 'Live Map', includeLeaflet: true }) %>
 </head>
-<body class="bg-slate-50 font-sans text-ink antialiased">
+<body class="bg-slate-50 dark:bg-darkBg font-sans text-ink dark:text-slate-50 antialiased">
   <%- include('partials/sidebar', { active }) %>
 
   <div class="ml-64 min-h-screen flex flex-col">
@@ -11,30 +11,30 @@
 
     <main class="flex-1 p-8 space-y-6">
       <section class="grid grid-cols-1 lg:grid-cols-4 gap-6">
-        <div class="lg:col-span-3 bg-white border border-slate-200 rounded-lg overflow-hidden">
-          <div id="live-map" class="w-full" style="height: 60vh;"></div>
+        <div class="lg:col-span-3 bg-white dark:bg-darkCard border border-slate-200 dark:border-slate-700 rounded-lg overflow-hidden">
+          <div id="live-map" style="background: transparent; z-index: 1;" class="w-full" style="height: 60vh;"></div>
         </div>
 
-        <aside class="bg-white border border-slate-200 rounded-lg flex flex-col overflow-hidden" style="max-height: 60vh;">
-          <div class="px-4 py-3 border-b border-slate-200">
-            <h2 class="text-sm font-semibold text-ink">On shift now</h2>
-            <p class="text-xs text-slate-500 mt-0.5">Select a name to locate them</p>
+        <aside class="bg-white dark:bg-darkCard border border-slate-200 dark:border-slate-700 rounded-lg flex flex-col overflow-hidden" style="max-height: 60vh;">
+          <div class="px-4 py-3 border-b border-slate-200 dark:border-slate-700">
+            <h2 class="text-sm font-semibold text-ink dark:text-slate-50">On shift now</h2>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Select a name to locate them</p>
           </div>
-          <ul id="rep-list" class="flex-1 overflow-y-auto divide-y divide-slate-100">
+          <ul id="rep-list" class="flex-1 overflow-y-auto divide-y divide-slate-100 dark:divide-slate-700/50">
             <li class="px-4 py-6 text-center text-sm text-slate-400">Loading…</li>
           </ul>
         </aside>
       </section>
 
-      <section class="bg-white border border-slate-200 rounded-lg">
-        <div class="px-6 py-4 border-b border-slate-200 flex items-center justify-between">
-          <h2 class="text-sm font-semibold text-ink">Latest visit logs</h2>
+      <section class="bg-white dark:bg-darkCard border border-slate-200 dark:border-slate-700 rounded-lg">
+        <div class="px-6 py-4 border-b border-slate-200 dark:border-slate-700 flex items-center justify-between">
+          <h2 class="text-sm font-semibold text-ink dark:text-slate-50">Latest visit logs</h2>
           <a href="/activity-logs" class="text-sm text-accent hover:underline">View all</a>
         </div>
         <div class="overflow-x-auto">
           <table class="min-w-full text-sm">
             <thead>
-              <tr class="text-left text-xs text-slate-500 uppercase tracking-wide bg-slate-50 border-b border-slate-200">
+              <tr class="text-left text-xs text-slate-500 dark:text-slate-400 uppercase tracking-wide bg-slate-50 dark:bg-darkBg border-b border-slate-200 dark:border-slate-700">
                 <th class="px-6 py-3 font-medium">Representative</th>
                 <th class="px-6 py-3 font-medium">Client</th>
                 <th class="px-6 py-3 font-medium">Address</th>
@@ -43,7 +43,7 @@
                 <th class="px-6 py-3 font-medium">Status</th>
               </tr>
             </thead>
-            <tbody id="latest-logs-body" class="divide-y divide-slate-100">
+            <tbody id="latest-logs-body" class="divide-y divide-slate-100 dark:divide-slate-700/50">
               <tr><td colspan="6" class="px-6 py-6 text-center text-slate-400">Loading…</td></tr>
             </tbody>
           </table>

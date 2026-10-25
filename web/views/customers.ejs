@@ -3,7 +3,7 @@
 <head>
   <%- include('partials/head', { title: 'Customers', includeLeaflet: true }) %>
 </head>
-<body class="bg-slate-50 font-sans text-ink antialiased">
+<body class="bg-slate-50 dark:bg-darkBg font-sans text-ink dark:text-slate-50 antialiased">
   <%- include('partials/sidebar', { active }) %>
 
   <div class="ml-64 min-h-screen flex flex-col">
@@ -14,33 +14,33 @@
       <div class="grid grid-cols-1 xl:grid-cols-5 gap-6">
 
         <!-- Form -->
-        <section class="xl:col-span-2 bg-white border border-slate-200 rounded-lg overflow-hidden self-start">
-          <div class="px-6 py-4 border-b border-slate-200 flex items-center justify-between">
+        <section class="xl:col-span-2 bg-white dark:bg-darkCard border border-slate-200 dark:border-slate-700 rounded-lg overflow-hidden self-start">
+          <div class="px-6 py-4 border-b border-slate-200 dark:border-slate-700 flex items-center justify-between">
             <div>
-              <h2 id="form-title" class="text-sm font-semibold text-ink">Add a customer</h2>
-              <p class="text-xs text-slate-500 mt-0.5">Place the pin where visits should be verified</p>
+              <h2 id="form-title" class="text-sm font-semibold text-ink dark:text-slate-50">Add a customer</h2>
+              <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Place the pin where visits should be verified</p>
             </div>
-            <button id="cancel-edit" type="button" class="text-xs text-slate-400 hover:text-ink hidden">Cancel</button>
+            <button id="cancel-edit" type="button" class="text-xs text-slate-400 hover:text-ink dark:text-slate-50 hidden">Cancel</button>
           </div>
 
           <form id="client-form" class="p-6 space-y-4">
             <input type="hidden" id="f-id">
 
             <div>
-              <label for="f-name" class="block text-xs font-medium text-slate-600 mb-1">Customer name</label>
+              <label for="f-name" class="block text-xs font-medium text-slate-600 dark:text-slate-300 mb-1">Customer name</label>
               <input type="text" id="f-name" required maxlength="150" placeholder="e.g. Lanka Hardware - Fort"
                 class="w-full text-sm border border-slate-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-accent/40 focus:border-accent">
             </div>
 
             <div>
-              <label for="f-address" class="block text-xs font-medium text-slate-600 mb-1">Address</label>
+              <label for="f-address" class="block text-xs font-medium text-slate-600 dark:text-slate-300 mb-1">Address</label>
               <div class="flex gap-2">
                 <input type="text" id="f-address" maxlength="300" placeholder="Street, city"
                   class="flex-1 text-sm border border-slate-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-accent/40 focus:border-accent">
                 <button type="button" id="f-search"
-                  class="text-sm font-medium text-slate-600 border border-slate-300 hover:border-slate-400 px-3 rounded-md whitespace-nowrap transition-colors">Find</button>
+                  class="text-sm font-medium text-slate-600 dark:text-slate-300 border border-slate-300 hover:border-slate-400 px-3 rounded-md whitespace-nowrap transition-colors">Find</button>
               </div>
-              <ul id="geo-results" class="mt-2 border border-slate-200 rounded-md divide-y divide-slate-100 hidden max-h-40 overflow-y-auto"></ul>
+              <ul id="geo-results" class="mt-2 border border-slate-200 dark:border-slate-700 rounded-md divide-y divide-slate-100 dark:divide-slate-700/50 hidden max-h-40 overflow-y-auto"></ul>
               <p class="text-xs text-slate-400 mt-1">
                 Address coverage in Sri Lanka is patchy. If "Find" misses, click the map instead &mdash; the pin is what counts.
               </p>
@@ -48,23 +48,23 @@
 
             <div class="grid grid-cols-3 gap-3">
               <div>
-                <label for="f-lat" class="block text-xs font-medium text-slate-600 mb-1">Latitude</label>
+                <label for="f-lat" class="block text-xs font-medium text-slate-600 dark:text-slate-300 mb-1">Latitude</label>
                 <input type="number" step="any" id="f-lat" readonly
-                  class="w-full text-sm font-mono bg-slate-50 border border-slate-300 rounded-md px-2 py-2 text-slate-600">
+                  class="w-full text-sm font-mono bg-slate-50 dark:bg-darkBg border border-slate-300 rounded-md px-2 py-2 text-slate-600 dark:text-slate-300">
               </div>
               <div>
-                <label for="f-lng" class="block text-xs font-medium text-slate-600 mb-1">Longitude</label>
+                <label for="f-lng" class="block text-xs font-medium text-slate-600 dark:text-slate-300 mb-1">Longitude</label>
                 <input type="number" step="any" id="f-lng" readonly
-                  class="w-full text-sm font-mono bg-slate-50 border border-slate-300 rounded-md px-2 py-2 text-slate-600">
+                  class="w-full text-sm font-mono bg-slate-50 dark:bg-darkBg border border-slate-300 rounded-md px-2 py-2 text-slate-600 dark:text-slate-300">
               </div>
               <div>
-                <label for="f-radius" class="block text-xs font-medium text-slate-600 mb-1">Radius (m)</label>
+                <label for="f-radius" class="block text-xs font-medium text-slate-600 dark:text-slate-300 mb-1">Radius (m)</label>
                 <input type="number" id="f-radius" value="100" min="20" max="2000" step="10"
                   class="w-full text-sm font-mono border border-slate-300 rounded-md px-2 py-2 focus:outline-none focus:ring-2 focus:ring-accent/40 focus:border-accent">
               </div>
             </div>
 
-            <p class="text-xs text-slate-500 bg-slate-50 border border-slate-200 rounded-md px-3 py-2">
+            <p class="text-xs text-slate-500 dark:text-slate-400 bg-slate-50 dark:bg-darkBg border border-slate-200 dark:border-slate-700 rounded-md px-3 py-2">
               A visit counts as <span class="text-verified font-medium">Verified</span> only when the rep is inside this
               circle at both check-in and check-out, allowing up to 30&nbsp;m of GPS error.
             </p>
@@ -79,9 +79,9 @@
         </section>
 
         <!-- Map -->
-        <section class="xl:col-span-3 bg-white border border-slate-200 rounded-lg overflow-hidden">
-          <div class="px-6 py-3 border-b border-slate-200 flex items-center justify-between">
-            <h2 class="text-sm font-semibold text-ink">Location</h2>
+        <section class="xl:col-span-3 bg-white dark:bg-darkCard border border-slate-200 dark:border-slate-700 rounded-lg overflow-hidden">
+          <div class="px-6 py-3 border-b border-slate-200 dark:border-slate-700 flex items-center justify-between">
+            <h2 class="text-sm font-semibold text-ink dark:text-slate-50">Location</h2>
             <span class="text-xs text-slate-400">Click the map to place the pin</span>
           </div>
           <div id="client-map" style="height: 420px;"></div>
@@ -89,14 +89,14 @@
       </div>
 
       <!-- Existing customers -->
-      <section class="bg-white border border-slate-200 rounded-lg overflow-hidden">
-        <div class="px-6 py-4 border-b border-slate-200 flex items-center justify-between">
-          <h2 class="text-sm font-semibold text-ink">All customers</h2>
+      <section class="bg-white dark:bg-darkCard border border-slate-200 dark:border-slate-700 rounded-lg overflow-hidden">
+        <div class="px-6 py-4 border-b border-slate-200 dark:border-slate-700 flex items-center justify-between">
+          <h2 class="text-sm font-semibold text-ink dark:text-slate-50">All customers</h2>
           <span id="client-count" class="text-xs text-slate-400">—</span>
         </div>
         <div class="overflow-x-auto">
           <table class="w-full text-sm">
-            <thead class="bg-slate-50 text-xs uppercase tracking-wide text-slate-500">
+            <thead class="bg-slate-50 dark:bg-darkBg text-xs uppercase tracking-wide text-slate-500 dark:text-slate-400">
               <tr>
                 <th class="px-6 py-3 text-left font-medium">Customer</th>
                 <th class="px-6 py-3 text-left font-medium">Address</th>
@@ -105,7 +105,7 @@
                 <th class="px-6 py-3 text-right font-medium">Actions</th>
               </tr>
             </thead>
-            <tbody id="clients-body" class="divide-y divide-slate-100">
+            <tbody id="clients-body" class="divide-y divide-slate-100 dark:divide-slate-700/50">
               <tr><td colspan="5" class="px-6 py-6 text-center text-slate-400">Loading…</td></tr>
             </tbody>
           </table>

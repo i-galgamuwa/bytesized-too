@@ -3,7 +3,7 @@
 <head>
   <%- include('partials/head', { title: 'Reports', includeCharts: true }) %>
 </head>
-<body class="bg-slate-50 font-sans text-ink antialiased">
+<body class="bg-slate-50 dark:bg-darkBg font-sans text-ink dark:text-slate-50 antialiased">
   <%- include('partials/sidebar', { active }) %>
 
   <div class="ml-64 min-h-screen flex flex-col">
@@ -12,7 +12,7 @@
     <main class="flex-1 p-8 space-y-6">
 
       <!-- Period switcher + exports -->
-      <section class="bg-white border border-slate-200 rounded-lg p-4 flex flex-wrap items-center justify-between gap-4">
+      <section class="bg-white dark:bg-darkCard border border-slate-200 dark:border-slate-700 rounded-lg p-4 flex flex-wrap items-center justify-between gap-4">
         <div class="flex flex-wrap items-center gap-2" id="period-switcher">
           <button data-period="WEEK"  data-offset="0" class="period-btn">This week</button>
           <button data-period="WEEK"  data-offset="1" class="period-btn">Last week</button>
@@ -21,56 +21,56 @@
           <button data-period="DAY"   data-offset="0" class="period-btn">Today</button>
         </div>
         <div class="flex items-center gap-2">
-          <a id="dl-summary" href="#" class="text-sm font-medium text-slate-600 hover:text-ink border border-slate-300 hover:border-slate-400 px-3 py-1.5 rounded-md transition-colors">Summary CSV</a>
-          <a id="dl-visits" href="#" class="text-sm font-medium text-slate-600 hover:text-ink border border-slate-300 hover:border-slate-400 px-3 py-1.5 rounded-md transition-colors">Visit log CSV</a>
+          <a id="dl-summary" href="#" class="text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-ink dark:text-slate-50 border border-slate-300 hover:border-slate-400 px-3 py-1.5 rounded-md transition-colors">Summary CSV</a>
+          <a id="dl-visits" href="#" class="text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-ink dark:text-slate-50 border border-slate-300 hover:border-slate-400 px-3 py-1.5 rounded-md transition-colors">Visit log CSV</a>
         </div>
       </section>
 
-      <p id="range-label" class="text-sm text-slate-500 font-medium">Loading…</p>
+      <p id="range-label" class="text-sm text-slate-500 dark:text-slate-400 font-medium">Loading…</p>
 
       <!-- Headline numbers -->
       <section class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
-        <div class="bg-white border border-slate-200 rounded-lg p-5">
-          <p class="text-xs font-medium text-slate-500">Visits</p>
-          <p id="stat-visits" class="mt-2 text-2xl font-semibold font-mono text-ink">—</p>
+        <div class="bg-white dark:bg-darkCard border border-slate-200 dark:border-slate-700 rounded-lg p-5">
+          <p class="text-xs font-medium text-slate-500 dark:text-slate-400">Visits</p>
+          <p id="stat-visits" class="mt-2 text-2xl font-semibold font-mono text-ink dark:text-slate-50">—</p>
         </div>
-        <div class="bg-white border border-slate-200 rounded-lg p-5">
-          <p class="text-xs font-medium text-slate-500">Verified rate</p>
+        <div class="bg-white dark:bg-darkCard border border-slate-200 dark:border-slate-700 rounded-lg p-5">
+          <p class="text-xs font-medium text-slate-500 dark:text-slate-400">Verified rate</p>
           <p id="stat-verified" class="mt-2 text-2xl font-semibold font-mono text-verified">—</p>
         </div>
-        <div class="bg-white border border-slate-200 rounded-lg p-5">
-          <p class="text-xs font-medium text-slate-500">Avg. duration</p>
-          <p id="stat-duration" class="mt-2 text-2xl font-semibold font-mono text-ink">—</p>
+        <div class="bg-white dark:bg-darkCard border border-slate-200 dark:border-slate-700 rounded-lg p-5">
+          <p class="text-xs font-medium text-slate-500 dark:text-slate-400">Avg. duration</p>
+          <p id="stat-duration" class="mt-2 text-2xl font-semibold font-mono text-ink dark:text-slate-50">—</p>
         </div>
-        <div class="bg-white border border-slate-200 rounded-lg p-5">
-          <p class="text-xs font-medium text-slate-500">Distance</p>
-          <p id="stat-distance" class="mt-2 text-2xl font-semibold font-mono text-ink">—</p>
+        <div class="bg-white dark:bg-darkCard border border-slate-200 dark:border-slate-700 rounded-lg p-5">
+          <p class="text-xs font-medium text-slate-500 dark:text-slate-400">Distance</p>
+          <p id="stat-distance" class="mt-2 text-2xl font-semibold font-mono text-ink dark:text-slate-50">—</p>
         </div>
-        <div class="bg-white border border-slate-200 rounded-lg p-5">
-          <p class="text-xs font-medium text-slate-500">Shift hours</p>
-          <p id="stat-hours" class="mt-2 text-2xl font-semibold font-mono text-ink">—</p>
+        <div class="bg-white dark:bg-darkCard border border-slate-200 dark:border-slate-700 rounded-lg p-5">
+          <p class="text-xs font-medium text-slate-500 dark:text-slate-400">Shift hours</p>
+          <p id="stat-hours" class="mt-2 text-2xl font-semibold font-mono text-ink dark:text-slate-50">—</p>
         </div>
-        <div class="bg-white border border-slate-200 rounded-lg p-5">
-          <p class="text-xs font-medium text-slate-500">Active reps</p>
-          <p id="stat-reps" class="mt-2 text-2xl font-semibold font-mono text-ink">—</p>
+        <div class="bg-white dark:bg-darkCard border border-slate-200 dark:border-slate-700 rounded-lg p-5">
+          <p class="text-xs font-medium text-slate-500 dark:text-slate-400">Active reps</p>
+          <p id="stat-reps" class="mt-2 text-2xl font-semibold font-mono text-ink dark:text-slate-50">—</p>
         </div>
       </section>
 
       <!-- Trend -->
-      <section class="bg-white border border-slate-200 rounded-lg p-6">
-        <h2 class="text-sm font-semibold text-ink mb-4">Visits per day</h2>
+      <section class="bg-white dark:bg-darkCard border border-slate-200 dark:border-slate-700 rounded-lg p-6">
+        <h2 class="text-sm font-semibold text-ink dark:text-slate-50 mb-4">Visits per day</h2>
         <canvas id="chart-trend" height="90"></canvas>
       </section>
 
       <!-- Per-rep table -->
-      <section class="bg-white border border-slate-200 rounded-lg overflow-hidden">
-        <div class="px-6 py-4 border-b border-slate-200 flex items-center justify-between">
-          <h2 class="text-sm font-semibold text-ink">Representatives</h2>
+      <section class="bg-white dark:bg-darkCard border border-slate-200 dark:border-slate-700 rounded-lg overflow-hidden">
+        <div class="px-6 py-4 border-b border-slate-200 dark:border-slate-700 flex items-center justify-between">
+          <h2 class="text-sm font-semibold text-ink dark:text-slate-50">Representatives</h2>
           <span class="text-xs text-slate-400">Select a row for the daily breakdown</span>
         </div>
         <div class="overflow-x-auto">
           <table class="w-full text-sm">
-            <thead class="bg-slate-50 text-xs uppercase tracking-wide text-slate-500">
+            <thead class="bg-slate-50 dark:bg-darkBg text-xs uppercase tracking-wide text-slate-500 dark:text-slate-400">
               <tr>
                 <th class="px-6 py-3 text-left font-medium">Representative</th>
                 <th class="px-6 py-3 text-right font-medium">Visits</th>
@@ -83,20 +83,20 @@
                 <th class="px-6 py-3 text-right font-medium">Shift hrs</th>
               </tr>
             </thead>
-            <tbody id="reps-body" class="divide-y divide-slate-100"></tbody>
+            <tbody id="reps-body" class="divide-y divide-slate-100 dark:divide-slate-700/50"></tbody>
           </table>
         </div>
       </section>
 
       <!-- Rep drill-down -->
-      <section id="rep-detail" class="bg-white border border-slate-200 rounded-lg overflow-hidden hidden">
-        <div class="px-6 py-4 border-b border-slate-200 flex items-center justify-between">
-          <h2 id="rep-detail-title" class="text-sm font-semibold text-ink">Representative</h2>
-          <button id="rep-detail-close" class="text-xs text-slate-400 hover:text-ink">Close</button>
+      <section id="rep-detail" class="bg-white dark:bg-darkCard border border-slate-200 dark:border-slate-700 rounded-lg overflow-hidden hidden">
+        <div class="px-6 py-4 border-b border-slate-200 dark:border-slate-700 flex items-center justify-between">
+          <h2 id="rep-detail-title" class="text-sm font-semibold text-ink dark:text-slate-50">Representative</h2>
+          <button id="rep-detail-close" class="text-xs text-slate-400 hover:text-ink dark:text-slate-50">Close</button>
         </div>
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-0 divide-y lg:divide-y-0 lg:divide-x divide-slate-100">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-0 divide-y lg:divide-y-0 lg:divide-x divide-slate-100 dark:divide-slate-700/50">
           <div class="p-6">
-            <h3 class="text-xs font-semibold uppercase tracking-wide text-slate-500 mb-3">Day by day</h3>
+            <h3 class="text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-3">Day by day</h3>
             <div class="overflow-x-auto max-h-80 overflow-y-auto">
               <table class="w-full text-sm">
                 <thead class="text-xs uppercase tracking-wide text-slate-400">
@@ -108,12 +108,12 @@
                     <th class="py-2 text-right font-medium">Hours</th>
                   </tr>
                 </thead>
-                <tbody id="rep-days" class="divide-y divide-slate-100"></tbody>
+                <tbody id="rep-days" class="divide-y divide-slate-100 dark:divide-slate-700/50"></tbody>
               </table>
             </div>
           </div>
           <div class="p-6">
-            <h3 class="text-xs font-semibold uppercase tracking-wide text-slate-500 mb-3">Clients reached</h3>
+            <h3 class="text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-3">Clients reached</h3>
             <div class="overflow-x-auto max-h-80 overflow-y-auto">
               <table class="w-full text-sm">
                 <thead class="text-xs uppercase tracking-wide text-slate-400">
@@ -124,7 +124,7 @@
                     <th class="py-2 text-right font-medium">Last visit</th>
                   </tr>
                 </thead>
-                <tbody id="rep-clients" class="divide-y divide-slate-100"></tbody>
+                <tbody id="rep-clients" class="divide-y divide-slate-100 dark:divide-slate-700/50"></tbody>
               </table>
             </div>
           </div>
@@ -132,17 +132,17 @@
       </section>
 
       <!-- Account coverage -->
-      <section class="bg-white border border-slate-200 rounded-lg overflow-hidden">
-        <div class="px-6 py-4 border-b border-slate-200">
+      <section class="bg-white dark:bg-darkCard border border-slate-200 dark:border-slate-700 rounded-lg overflow-hidden">
+        <div class="px-6 py-4 border-b border-slate-200 dark:border-slate-700">
           <div class="flex items-center justify-between">
-            <h2 class="text-sm font-semibold text-ink">Account coverage</h2>
+            <h2 class="text-sm font-semibold text-ink dark:text-slate-50">Account coverage</h2>
             <span id="coverage-summary" class="text-xs text-slate-400">—</span>
           </div>
-          <p class="text-xs text-slate-500 mt-1">Least-covered accounts first. These are the ones to act on.</p>
+          <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Least-covered accounts first. These are the ones to act on.</p>
         </div>
         <div class="overflow-x-auto">
           <table class="w-full text-sm">
-            <thead class="bg-slate-50 text-xs uppercase tracking-wide text-slate-500">
+            <thead class="bg-slate-50 dark:bg-darkBg text-xs uppercase tracking-wide text-slate-500 dark:text-slate-400">
               <tr>
                 <th class="px-6 py-3 text-left font-medium">Client</th>
                 <th class="px-6 py-3 text-left font-medium">Address</th>
@@ -152,7 +152,7 @@
                 <th class="px-6 py-3 text-left font-medium">Seen by</th>
               </tr>
             </thead>
-            <tbody id="coverage-body" class="divide-y divide-slate-100"></tbody>
+            <tbody id="coverage-body" class="divide-y divide-slate-100 dark:divide-slate-700/50"></tbody>
           </table>
         </div>
       </section>
