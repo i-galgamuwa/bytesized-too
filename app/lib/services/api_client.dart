@@ -20,10 +20,10 @@ class ApiClient {
     const allowInsecure = bool.fromEnvironment('ALLOW_INSECURE_HTTP', defaultValue: false);
     if (!allowInsecure) {
       // In production, we require https://
-      return 'http://192.168.1.122:8080/api/v1';
+      return 'https://5vn97q6h-8080.inc1.devtunnels.ms/api/v1';
     }
     // Fallback for emulator testing:
-    return 'http://192.168.1.122:8080/api/v1';
+    return 'https://5vn97q6h-8080.inc1.devtunnels.ms/api/v1';
   }
 
   static Future<void> saveToken(String token) async {
